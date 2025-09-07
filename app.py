@@ -47,18 +47,19 @@ def calcular_pegada():
     try:
         data = request.json
 
-        num_residentes = data.get('num_residentes', 0)
-        area_casa = data.get('area_casa', 0)
-        consumo_kwh = data.get('consumo_energia_kwh', 0)
-        consumo_gas = data.get('consumo_gas_m3', 0)
+        # Converte os valores de string para int ou float
+        num_residentes = int(data.get('num_residentes', 0))
+        area_casa = float(data.get('area_casa', 0))
+        consumo_kwh = float(data.get('consumo_energia_kwh', 0))
+        consumo_gas = float(data.get('consumo_gas_m3', 0))
         
-        km_carro = data.get('km_carro_mensal', 0)
+        km_carro = float(data.get('km_carro_mensal', 0))
         tipo_combustivel = data.get('tipo_combustivel', 'gasolina')
-        km_onibus = data.get('km_onibus_mensal', 0)
-        km_metro = data.get('km_metro_mensal', 0)
+        km_onibus = float(data.get('km_onibus_mensal', 0))
+        km_metro = float(data.get('km_metro_mensal', 0))
 
         dieta_tipo = data.get('dieta_tipo', 'carnivora')
-        residuos_kg = data.get('residuos_kg_semana', 0)
+        residuos_kg = float(data.get('residuos_kg_semana', 0))
 
         # Cálculos
         co2_energia = 0
