@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 # =============================================================================
@@ -37,6 +37,10 @@ FATORES_EMISSAO = {
 
 # Fator de conversao: 1 credito de carbono = 1 tonelada de CO2e
 FATOR_CREDITO = 1000  # kg para tonelada
+
+@app.route('/')
+def home():
+    return render_template('carbono.html')
 
 @app.route('/calcular_pegada', methods=['POST'])
 def calcular_pegada():
