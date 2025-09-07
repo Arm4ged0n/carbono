@@ -16,14 +16,114 @@
 
     <div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 lg:p-12">
+            <h1 class="text-3xl font-bold text-center mb-6 text-green-700 dark:text-green-400">Calculadora de Pegada de Carbono</h1>
+            <p class="text-center text-lg mb-10 text-gray-600 dark:text-gray-400">Calcule sua emissão de CO2 e descubra como você pode compensar seu impacto ambiental.</p>
+
+            <form id="carbonForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold border-b pb-2 mb-4 border-gray-200 dark:border-gray-700 text-green-600 dark:text-green-300">Residência</h2>
+                    <div>
+                        <label for="numResidentes" class="block text-sm font-medium">Número de residentes</label>
+                        <input type="number" id="numResidentes" name="num_residentes" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label for="areaCasa" class="block text-sm font-medium">Área da residência (m²)</label>
+                        <input type="number" id="areaCasa" name="area_casa" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label for="consumoEnergia" class="block text-sm font-medium">Consumo de energia (kWh/mês)</label>
+                        <input type="number" id="consumoEnergia" name="consumo_energia_kwh" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label for="consumoGas" class="block text-sm font-medium">Consumo de gás (m³/mês)</label>
+                        <input type="number" id="consumoGas" name="consumo_gas_m3" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h2 class="text-xl font-semibold border-b pb-2 mb-4 border-gray-200 dark:border-gray-700 text-green-600 dark:text-green-300">Transporte</h2>
+                    <div>
+                        <label for="kmCarro" class="block text-sm font-medium">Distância percorrida de carro (km/mês)</label>
+                        <input type="number" id="kmCarro" name="km_carro_mensal" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label for="tipoCombustivel" class="block text-sm font-medium">Tipo de Combustível</label>
+                        <select id="tipoCombustivel" name="tipo_combustivel" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <option value="gasolina">Gasolina</option>
+                            <option value="etanol">Etanol</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="kmOnibus" class="block text-sm font-medium">Distância percorrida de ônibus (km/mês)</label>
+                        <input type="number" id="kmOnibus" name="km_onibus_mensal" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                    <div>
+                        <label for="kmMetro" class="block text-sm font-medium">Distância percorrida de metrô (km/mês)</label>
+                        <input type="number" id="kmMetro" name="km_metro_mensal" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 space-y-6">
+                    <h2 class="text-xl font-semibold border-b pb-2 mb-4 border-gray-200 dark:border-gray-700 text-green-600 dark:text-green-300">Alimentação e Resíduos</h2>
+                    <div>
+                        <label for="dietaTipo" class="block text-sm font-medium">Tipo de dieta</label>
+                        <select id="dietaTipo" name="dieta_tipo" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <option value="carnivora">Carnívora</option>
+                            <option value="vegetariana">Vegetariana</option>
+                            <option value="vegana">Vegana</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="residuosKg" class="block text-sm font-medium">Resíduos gerados (kg/semana)</label>
+                        <input type="number" id="residuosKg" name="residuos_kg_semana" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 flex justify-center space-x-4 mt-6">
+                    <button type="button" onclick="calcularPegada()" class="px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                        Calcular
+                    </button>
+                    <button type="button" onclick="resetForm()" class="px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 dark:text-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        Limpar
+                    </button>
+                </div>
+            </form>
+
+            <div id="resultado" class="mt-12 p-6 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800 text-center hidden">
+                <h3 class="text-2xl font-bold mb-4 text-green-800 dark:text-green-200">Sua Pegada de Carbono Anual</h3>
+                <p class="text-4xl font-extrabold mb-4 text-green-700 dark:text-green-400"><span id="totalTon" class="text-4xl">0.00</span> toneladas de CO2</p>
+                
+                <div class="mt-6 text-left">
+                    <h4 class="text-xl font-semibold mb-2 text-green-700 dark:text-green-300">Detalhes por Categoria</h4>
+                    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                        <li><strong class="text-green-600 dark:text-green-400">Energia:</strong> <span id="energiaTon">0.00</span> tCO2e</li>
+                        <li><strong class="text-green-600 dark:text-green-400">Transporte:</strong> <span id="transporteTon">0.00</span> tCO2e</li>
+                        <li><strong class="text-green-600 dark:text-green-400">Alimentação:</strong> <span id="alimentacaoTon">0.00</span> tCO2e</li>
+                        <li><strong class="text-green-600 dark:text-green-400">Resíduos:</strong> <span id="residuosTon">0.00</span> tCO2e</li>
+                    </ul>
+                </div>
+
+                <p class="mt-6 text-lg font-medium text-gray-700 dark:text-gray-300">
+                    Para compensar seu impacto, você precisa de <span id="creditosCompensar" class="font-extrabold text-green-600 dark:text-green-400">0.00</span> créditos de carbono.
+                </p>
             </div>
+        </div>
     </div>
 
     <script>
         function calcularPegada() {
             // Coleta os dados do formulario
             const data = {
-                // ... campos do formulário ...
+                num_residentes: document.getElementById('numResidentes').value,
+                area_casa: document.getElementById('areaCasa').value,
+                consumo_energia_kwh: document.getElementById('consumoEnergia').value,
+                consumo_gas_m3: document.getElementById('consumoGas').value,
+                km_carro_mensal: document.getElementById('kmCarro').value,
+                tipo_combustivel: document.getElementById('tipoCombustivel').value,
+                km_onibus_mensal: document.getElementById('kmOnibus').value,
+                km_metro_mensal: document.getElementById('kmMetro').value,
+                dieta_tipo: document.getElementById('dietaTipo').value,
+                residuos_kg_semana: document.getElementById('residuosKg').value
             };
 
             // Envia os dados para o servidor Python usando a Fetch API
@@ -34,11 +134,33 @@
                 },
                 body: JSON.stringify(data),
             })
-            // ... resto do script ...
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    alert('Erro ao calcular: ' + data.erro);
+                    return;
+                }
+                
+                // Atualiza os elementos HTML com os resultados
+                document.getElementById('totalTon').textContent = data.total_toneladas;
+                document.getElementById('creditosCompensar').textContent = data.creditos_compensar;
+                document.getElementById('energiaTon').textContent = data.quebra.energia;
+                document.getElementById('transporteTon').textContent = data.quebra.transporte;
+                document.getElementById('alimentacaoTon').textContent = data.quebra.alimentacao;
+                document.getElementById('residuosTon').textContent = data.quebra.residuos;
+
+                // Mostra a seção de resultados
+                document.getElementById('resultado').classList.remove('hidden');
+            })
+            .catch((error) => {
+                console.error('Erro na requisição:', error);
+                alert('Ocorreu um erro ao conectar com o servidor. Verifique o console para mais detalhes.');
+            });
         }
 
         function resetForm() {
-            // ... código do reset ...
+            document.getElementById('carbonForm').reset();
+            document.getElementById('resultado').classList.add('hidden');
         }
     </script>
 </body>
